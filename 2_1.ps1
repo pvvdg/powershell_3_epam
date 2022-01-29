@@ -3,5 +3,6 @@
 $path = "C:\Files"
 
 "{0:N2} Kb" -f ((Get-ChildItem -Force $path -Exclude *.tmp -Recurse -ErrorAction SilentlyContinue |
+        #Если сканить папку винды, исключаем хардлинки для точности ее размера
         Where-Object { $_.LinkType -notmatch "HardLink" } |
         Measure-Object Length -Sum).Sum / 1Kb)
